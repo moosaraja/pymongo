@@ -22,21 +22,21 @@ try:
                 GoldName = (row.text.split()[0]+ ' ' + row.text.split()[1] +' ' + row.text.split()[2] + ' ' + row.text.split()[3])
                 GoldGram = (row.text.split()[7])
                 SellingPrice = (row.text.split()[10])
-                print(GoldName,GoldGram,SellingPrice)
+                #print(GoldName,GoldGram,SellingPrice)
                 mydict = {"GoldName":GoldName, "GoldGram":GoldGram,"SellingPrice":SellingPrice,"DateImported":datetime.datetime.now(),"EurotoINR" :EurotoINR ,"GoldRate22kINR": GoldRate22kINR}
             elif (int(row.text.split()[2])) == 2:
                 #print(row.text.split()[2])
                 GoldName = (row.text.split()[0]+ ' ' + row.text.split()[1] +' ' + row.text.split()[2] + ' ' + row.text.split()[3])
                 GoldGram = (row.text.split()[9])
                 SellingPrice = (row.text.split()[12])
-                print(GoldName,GoldGram,SellingPrice)
+                #print(GoldName,GoldGram,SellingPrice)
                 mydict = {"GoldName":GoldName, "GoldGram":GoldGram,"SellingPrice":SellingPrice,"DateImported":datetime.datetime.now(),"EurotoINR" :EurotoINR ,"GoldRate22kINR": GoldRate22kINR}
             else:
                 #print(row.text.split()[2])
                 GoldName = (row.text.split()[0]+ ' ' + row.text.split()[1] +' ' + row.text.split()[2] + ' ' + row.text.split()[3])
                 GoldGram = (row.text.split()[6])
                 SellingPrice = (row.text.split()[9])
-                print(GoldName,GoldGram,SellingPrice)
+                #print(GoldName,GoldGram,SellingPrice)
                 mydict = {"GoldName":GoldName, "GoldGram":GoldGram,"SellingPrice":SellingPrice,"DateImported":datetime.datetime.now(),"EurotoINR" :EurotoINR ,"GoldRate22kINR": GoldRate22kINR}
         
         mycol.insert_one(mydict)
