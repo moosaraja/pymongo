@@ -1,0 +1,1 @@
+db.GoldPrice.find({"GoldGram":"50.00"},{"SellingPrice":1,_id:0,"EurotoINR":1,"GoldRate22kINR":1,"DateImported":1});
