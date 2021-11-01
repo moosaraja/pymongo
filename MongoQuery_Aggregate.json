@@ -1,0 +1,8 @@
+var pipeline=[
+    {$sort    : {"GoldGram":1}},
+    {$project : { "GoldGram":1,"SellingPrice":1,"EurotoINR":1,"GoldRate22kINR":1,"DateImported":1,_id:0 }},
+    {$match   : {"GoldGram":"1.00"}}
+
+];
+db.GoldPrice.aggregate(pipeline);
+
