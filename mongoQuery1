@@ -1,1 +1,8 @@
 db.GoldPrice.find({"GoldGram":"50.00"},{"SellingPrice":1,_id:0,"EurotoINR":1,"GoldRate22kINR":1,"DateImported":1});
+db.GoldPrice.find({"DateImported":{$gte:ISODate("2021-11-01T09:40:00.767Z")}},{"GoldGram":1,"SellingPrice":1,_id:0,"EurotoINR":1,"GoldRate22kINR":1,"DateImported":1,"Indian":1});
+db.GoldPrice.find().count()
+db.GoldPrice.deleteMany({"DateImported":{$gte:ISODate("2021-11-01T09:40:00.767Z")}})
+db.GoldPrice.find({"GoldGram":"1.00"},{"GoldGram":1,"SellingPrice":1,_id:0,"EurotoINR":1,"GoldRate22kINR":1,"DateImported":1,"Indian":1});
+
+
+
