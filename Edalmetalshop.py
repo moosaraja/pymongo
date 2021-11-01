@@ -40,6 +40,7 @@ try:
                 mydict = {"GoldName":GoldName, "GoldGram":GoldGram,"SellingPrice":SellingPrice,"DateImported":datetime.datetime.now(),"EurotoINR" :EurotoINR ,"GoldRate22kINR": GoldRate22kINR}
         
         mycol.insert_one(mydict)
+        
                 
     #Get Euro--> Inr Converstion rate from X-rates.com
     #-----------------------------------------------------------------------------------------------
@@ -97,6 +98,7 @@ try:
     Gramcalculation(Gram10,Euro,GoldRate22k)
     Gramcalculation(Gram1z,Euro,GoldRate22k)
     Gramcalculation(Gram50,Euro,GoldRate22k)
+    print("Insert Completed!")
     
 
 except Exception as e:
