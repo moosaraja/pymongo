@@ -1,0 +1,86 @@
+---------Aggregate Function in mongodb---------------
+
+db.GoldPrice.aggregate([{$sort    : {"GoldGram":1}},
+    {$project : { "GoldGram":1,"SellingPrice":1,"EurotoINR":1,"GoldRate22kINR":1,"DateImported":1,_id:0,"IndiaPrice" : {$mul : [{$toDecimal:"$EurotoINR"},{$toDecimal:"$GoldGram"}]}}},
+    {$match   : {"_id":"617aa5d18909f762769d066e"}},
+    ]);
+
+    db.GoldPrice.aggregate([{$match: {_id: ObjectId("617aa5d18909f762769d066e")}},
+        {$sort    : {"GoldGram":1}},
+        {$project : { "GoldGram":1,"SellingPrice":1,"EurotoINR":1,"GoldRate22kINR":1,"DateImported":1,_id:0,IndiaPrice : {$add : ["$EurotoINR","$GoldGram"]}}},
+        ]);
+
+       
+    db.GoldPrice.aggregate([{$sort    : {"GoldGram":1}},
+        {   $project : 
+            { 
+                "GoldGram":1,"SellingPrice":1,"EurotoINR":1,"GoldRate22kINR":1,"DateImported":1,_id:0,
+                 
+                    $multiply: 
+                        {
+                            Gram: {$convert: {input:"$GoldGram",to:"decimal"}},
+                            Euro: {$convert: {input:"$EurotoINR",to:"decimal"}}
+                        }
+            }
+        },
+        {$match   : {"GoldGram":"1.00"}},
+        ]);
+
+
+        db.GoldPrice.aggregate([{$sort    : {"GoldGram":1}},
+            {$project : { "GoldGram":1,"SellingPrice":1,"EurotoINR":1,"GoldRate22kINR":1,"DateImported":1,_id:0,
+            Gram: {$convert: {input:"$GoldGram",to:"decimal"}},Euro: {$convert: {input:"$EurotoINR",to:"decimal"}}}},
+            {$match   : {"GoldGram":"1.00"}}
+            ]);
+    
+        db.GoldPrice.aggregate([{$match   : {EurotoINR: "87.23"}},
+                                {$sort    : {"GoldGram":1}},
+                                {$project : { Gram:{$toDecimal:"$GoldGram"} ,Euro: {$toDecimal:"$EurotoINR"}}}
+                            ]);
+    
+        db.GoldPrice.aggregate([{$match: {EurotoINR:  "87.23"}}]);
+    
+
+                            
+                            db.GoldPrice.aggregate([{$match   : {GoldGram:"1.00"}}]);
+    
+            
+
+
+        db.GoldPrice.aggregate([
+            {$project : { "GoldGram":1,Gram: {$toInt: "$GoldGram"}}} 
+            ]);
+
+             ,"SellingPrice":1,"EurotoINR":1,"GoldRate22kINR":1,"DateImported":1,_id:0,Gram: {$toInt: "$GoldGram"}}
+        ,Gram: {$toInt: "$GoldGram"}
+    
+
+db.GoldPrice.aggregate([
+    { $group : { "_id" : '$GoldGram', totaldocs : { $sum : 1 } } },
+    { $sort : {_id:1}}
+    ]).pretty();
+
+---------Count in Aggreation (In aggregation SUM is same as count)---------------
+db.GoldPrice.aggregate([
+    { $group : { "_id" : '$GoldGram', totaldocs : { $sum : 1 } } },
+    { $sort : {_id:1}}
+    ]).pretty();
+    
+
+---------Min and Max in Aggreation group ---------------
+db.GoldPrice.aggregate([
+        { $group : { "_id" : '$GoldGram', MaxPrice : { $max : '$SellingPrice' },MinPrice : { $min : '$SellingPrice' } } },
+        { $sort : {_id:1}}
+        ]).pretty();
+
+
+----------------$Out Operation -- Export result to new collection --- Like using temptable in sql server-----------
+----------------$Out operation alwasy come in teh last stage of the pipeline
+
+db.GoldPrice.aggregate([
+    { $group : { "_id" : '$GoldGram', MaxPrice : { $max : '$SellingPrice' },MinPrice : { $min : '$SellingPrice' } } },
+    { $sort : {_id:1}},
+    { $out : 'MinMaxOutput'}
+    ]).pretty();
+
+        
