@@ -7,4 +7,4 @@ db.GoldPrice.deleteMany({"DateImported":{$lte:ISODate("2021-10-28T11:34:43.221Z"
 db.GoldPrice.deleteMany({"DateImported":{$lte:ISODate("2021-10-28T11:34:43.221Z")}})
 db.GoldPrice.find({_id:ObjectId('6181145eceb199bd3d7685ba')},{"GoldGram":1,"SellingPrice":1,_id:0,"EurotoINR":1,"GoldRate22kINR":1,"DateImported":1,"Indian":1});
 
-
+db.Goldprice
