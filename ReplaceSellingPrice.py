@@ -12,7 +12,7 @@ try:
         mydb = myclient["Gold"]
         mycol = mydb["GoldPrice"]
         
-        
+        print(mycol.find())
 
         #myQuery = {"_id":ObjectId(id)}
         #newValue = 2,5
