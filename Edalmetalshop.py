@@ -9,33 +9,50 @@ from requests.models import parse_header_links
 
 try:
 
+    def SellingPriceFormating(SellingPrice):  #This function is to format the selling price from , and int format
+        new_character = ''
+        position = 1
+        replaceComma = SellingPrice.replace(",",".")
+        #print(replaceComma)
+        isSecondisDot = replaceComma[1:2:1]
+        #print(isSecondDot)
+        if (isSecondisDot == "."):
+            RemoveSecondDot = replaceComma[:position] + new_character + replaceComma[position+1:]            
+            #print(RemoveSecondDot)
+            return RemoveSecondDot
+        else:
+            return replaceComma
+
     def Gramcalculation(gramname,EurotoINR,GoldRate22kINR):
         myclient = pymongo.MongoClient("mongodb://localhost:27017/")
         mydb = myclient["Gold"]
         mycol = mydb["GoldPrice"]
         mydict = {}
-
         
         for row in gramname:
         
             if ((row.text.split()[2].lstrip()) == "Gramm,"):
                 GoldName = (row.text.split()[0]+ ' ' + row.text.split()[1] +' ' + row.text.split()[2] + ' ' + row.text.split()[3])
                 GoldGram = (row.text.split()[7])
-                SellingPrice = (row.text.split()[10])
+                SellingPrice = SellingPriceFormating((row.text.split()[10])) #Calling the formating function for selling price
+                print(SellingPrice)
+                #print(recordid,SellingPrice)
                 #print(GoldName,GoldGram,SellingPrice)
                 mydict = {"GoldName":GoldName, "GoldGram":GoldGram,"SellingPrice":SellingPrice,"DateImported":datetime.datetime.now(),"EurotoINR" :EurotoINR ,"GoldRate22kINR": GoldRate22kINR}
             elif (int(row.text.split()[2])) == 2:
                 #print(row.text.split()[2])
                 GoldName = (row.text.split()[0]+ ' ' + row.text.split()[1] +' ' + row.text.split()[2] + ' ' + row.text.split()[3])
                 GoldGram = (row.text.split()[9])
-                SellingPrice = (row.text.split()[12])
+                SellingPrice = SellingPriceFormating((row.text.split()[12]))
                 #print(GoldName,GoldGram,SellingPrice)
+                print(SellingPrice)
                 mydict = {"GoldName":GoldName, "GoldGram":GoldGram,"SellingPrice":SellingPrice,"DateImported":datetime.datetime.now(),"EurotoINR" :EurotoINR ,"GoldRate22kINR": GoldRate22kINR}
             else:
                 #print(row.text.split()[2])
                 GoldName = (row.text.split()[0]+ ' ' + row.text.split()[1] +' ' + row.text.split()[2] + ' ' + row.text.split()[3])
                 GoldGram = (row.text.split()[6])
-                SellingPrice = (row.text.split()[9])
+                SellingPrice = SellingPriceFormating(row.text.split()[9])
+                print(SellingPrice)
                 #print(GoldName,GoldGram,SellingPrice)
                 mydict = {"GoldName":GoldName, "GoldGram":GoldGram,"SellingPrice":SellingPrice,"DateImported":datetime.datetime.now(),"EurotoINR" :EurotoINR ,"GoldRate22kINR": GoldRate22kINR}
         

@@ -5,4 +5,30 @@ db.GoldPrice.deleteMany({"DateImported":{$gte:ISODate("2021-11-01T09:40:00.767Z"
 db.GoldPrice.find({"GoldGram":"1.00"},{"GoldGram":1,"SellingPrice":1,_id:0,"EurotoINR":1,"GoldRate22kINR":1,"DateImported":1,"Indian":1});
 db.GoldPrice.deleteMany({"DateImported":{$lte:ISODate("2021-10-28T11:34:43.221Z")}})
 db.GoldPrice.deleteMany({"DateImported":{$lte:ISODate("2021-10-28T11:34:43.221Z")}})
-db.GoldPrice.find({_id:ObjectId('6181145eceb199bd3d7685ba')},{"GoldGram":1,"SellingPrice":1,_id:0,"EurotoINR":1,"GoldRate22kINR":1,"DateImported":1,"Indian":1});
+db.GoldPrice.find({_id:ObjectId('617a9901feba58400d2c9556')},{"GoldGram":1,"SellingPrice":1,_id:0,"EurotoINR":1,"GoldRate22kINR":1,"DateImported":1,"Indian":1,
+    ComparisonforIndiaPrice:{$multiply:[{$toDouble:'$EurotoINR'},{$toDouble:'$SellingPrice'}]}
+    });
+
+    db.GoldPrice.find({},{"GoldGram":1,"SellingPrice":1,_id:0,"EurotoINR":1,"GoldRate22kINR":1,"DateImported":1,"Indian":1,
+        ComparisonforIndiaPrice:{$multiply:[{$toDouble:'$EurotoINR'},{$toDouble:'$SellingPrice'}]}
+        });
+    
+
+
+db.GoldPrice.aggregate(
+[
+    {$project: 
+        {SellingPrice1 :{$substr: ["$SellingPrice", 2, 1 ]}}}]);
+
+        
+db.GoldPrice.find({},{"SellingPrice":1});
+
+    
+
+db.GoldPrice.find({_id:ObjectId('619389b3d561937e1abb9fc2')},{price:{$multiply:[{$toDouble:'$EurotoINR'},{$toDouble:'$SellingPrice'}]}});
+db.GoldPrice.find({_id:ObjectId('6194cf95ac765454f8187b69')},{price:{$multiply:[84,{$toInt:'$GoldRate22kINR'}]}});
+
+db.GoldPrice.findOneAndUpdate(
+{_id:ObjectId('6194cf95ac765454f8187b69')},
+   { $set: { "$EurotoINR" : 84,03 } }
+)

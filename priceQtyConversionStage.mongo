@@ -1,0 +1,14 @@
+priceQtyConversionStage = {
+   $addFields: {
+      convertedEuro: { $toDecimal: "$SellingPrice" },
+      convertedGram: { $toDecimal: "$GoldGram" },
+   }
+};
+// Define stage to calculate total price by multiplying convertedPrice and convertedQty fields
+totalPriceCalculationStage = {
+   $project: { "GoldGram":1,"SellingPrice":1,"EurotoINR":1,"GoldRate22kINR":1,"DateImported":1,_id:0, IndianPrice: { $multiply: [ "$convertedEuro", "$convertedGram" ] } }
+};
+db.GoldPrice.aggregate( [
+   priceQtyConversionStage,
+   totalPriceCalculationStage
+])

@@ -1,0 +1,19 @@
+db.universities.aggregate([
+  { $match : { name : 'UPSA' } },
+  { $project : { _id : 0, name : 1 } },
+  { $lookup : {
+      from : 'course',
+      localField : 'name',
+      foreignField : 'university',
+      as : 'courses'
+  } }
+  ]).pretty()
+
+
+  db.GoldPrice.aggregate([
+  { $sortByCount : '$GoldRate22kINR' }
+]).pretty()
+
+  db.GoldPrice.aggregate([
+  { $match : {GoldRate22kINR :null} }
+]).pretty()
